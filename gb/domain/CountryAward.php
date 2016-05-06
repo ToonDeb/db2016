@@ -13,7 +13,8 @@ require_once("gb/domain/DomainObject.php");
 class CountryAward extends DomainObject
 {
     private $total;
-    private $name;
+    private $country;
+	private $genre;
     
     function __construct( $id=null ) {
         parent::__construct( $id );
@@ -38,17 +39,36 @@ class CountryAward extends DomainObject
     /**
      * @return mixed
      */
-    public function getName()
+    public function getCountry()
     {
-        return $this->name;
+        return $this->country;
     }
 
     /**
      * @param mixed $name
      */
-    public function setName($name)
+    public function setCountry($CountryName)
     {
-        $this->name = $name;
+        $this->country = $CountryName;
+	
+    }
+	
+	    /**
+     * @return mixed
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setGenre($GenreName)
+    {
+	
+        $this->genre = $GenreName;
+
     }
     
     

@@ -14,7 +14,7 @@ class AwardMapper extends Mapper
 {
     function __construct() {
         parent::__construct();
-        $this->selectOtherStmt = "SELECT c.name AS name,
+        $this->selectCountryAwards = "SELECT c.name AS CountryName,
                     COUNT(*) AS total
                 FROM award a,
                     country c,
@@ -22,8 +22,8 @@ class AwardMapper extends Mapper
                 WHERE a.uri = w.award_uri
                     and c.iso_code = a.country_iso_code
                 GROUP BY c.name";
-        $this->selectAllStmt =
-                    "SELECT g.name AS name,
+        $this->selectGenreAwards =
+                    "SELECT g.name AS GenreName,
                 COUNT(*) AS total
               FROM
                 genre g,
@@ -50,9 +50,24 @@ class AwardMapper extends Mapper
     {
         $obj = null;
         if (count($array) > 0) {
-            $obj = new \gb\domain\CountryAward($array['name']);
-            $obj->setName($array['name']);
+			
+	
+			
+			if (isset($array['CountryName'])){ 
+			$obj = new \gb\domain\CountryAward($array['CountryName']);
+			 $obj->setCountry($array['CountryName']);
+		
+	
+			
+            }else{
+				$obj = new \gb\domain\CountryAward($array['GenreName']);
+				$obj->setGenre($array['GenreName']);
+			}
+			
             $obj->setTotal($array['total']);
+			
+			
+			
         }
         return $obj;
     }
@@ -68,10 +83,10 @@ class AwardMapper extends Mapper
     }
 
     function selectAllStmt(){
-        return $this->selectAllStmt;
+        return $this->selectGenreAwards;
     }
     
     function selectOtherStmt(){
-        return $this->selectOtherStmt;
+        return $this->selectCountryAwards;
     }
 }
